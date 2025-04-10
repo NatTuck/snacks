@@ -16,3 +16,4 @@ https:/babeljs.io/) for Fast Refresh
 ## Stuff to Add
 
  - https://github.com/pmndrs/zustand
+ - Ramda
