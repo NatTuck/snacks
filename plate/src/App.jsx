@@ -3,15 +3,18 @@ import appLogo from './assets/pizza.svg';
 import PWABadge from './PWABadge.jsx';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <div className="flex justify-center w-screen">
-      <div className="card shadow-sm lg:w-3/4">
-        <div className="flex">
+      <div className="card shadow-sm container">
+        <div>
           <img className="w-20 h-20" src={appLogo} />
         </div>
-        <h1>plate</h1>
+        <h1 className="text-3xl font-bold">plate</h1>
+        <div className="hidden md:block">
+          <p>At least md</p>
+        </div >
         <div className="card">
           <button className="btn btn-neutral w-50" onClick={() => setCount((count) => count + 1)}>
             count is {count}
