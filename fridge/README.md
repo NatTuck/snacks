@@ -1,4 +1,33 @@
+
 # Fridge
+
+The backend/API for the Snacks food tracking app
+
+## Schema Thoughts
+
+users:
+
+- email
+- password_hash
+
+foods:
+
+- user_id
+- name: not null
+- calories per serving: not null
+- serving size: not null
+- serving unit: not null
+- carbs per serving
+- fat per serving
+- protein per serving
+- fiber per serving
+
+snacks:
+
+- food_id
+- eaten_on
+
+## Phoenix
 
 To start your Phoenix server:
 
