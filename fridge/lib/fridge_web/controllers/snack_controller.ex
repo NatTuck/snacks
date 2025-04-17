@@ -15,7 +15,7 @@ defmodule FridgeWeb.SnackController do
     with {:ok, %Snack{} = snack} <- Snacks.create_snack(snack_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", ~p"/api/snacks/#{snack}")
+      |> put_resp_header("location", ~p"/api/v1/snacks/#{snack}")
       |> render(:show, snack: snack)
     end
   end

@@ -15,7 +15,7 @@ defmodule FridgeWeb.FoodController do
     with {:ok, %Food{} = food} <- Foods.create_food(food_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", ~p"/api/foods/#{food}")
+      |> put_resp_header("location", ~p"/api/v1/foods/#{food}")
       |> render(:show, food: food)
     end
   end
