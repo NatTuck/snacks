@@ -20,10 +20,13 @@ defmodule FridgeWeb.Router do
     get "/", PageController, :home
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", FridgeWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/v1", FridgeWeb do
+    pipe_through :api
+
+    resources "/users", UserController, except: [:new, :edit]
+    resources "/foods", FoodController, except: [:new, :edit]
+    resources "/snacks", SnackController, except: [:new, :edit]
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:fridge, :dev_routes) do
