@@ -1,19 +1,45 @@
-import { useForm } from "react-hook-form";
+import { FiAlertTriangle, FiCheck } from "react-icons/fi";
 
 function LoginForm() {
-  const { handleSubmit, register } = useForm();
-
   function onSubmit(data) {
     console.log("login", data);
   }
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="email" className="input input-neutral"
-          {...register('email', { pattern: /@/ })} />
-        <input type="submit" className="btn btn-primary" />
+      <form onSubmit={onSubmit}>
+        <InputField type="text" name="email" />
+
+        <div>
+          <input type="submit" className="btn btn-primary" />
+        </div>
       </form>
+    </div>
+  );
+}
+
+function InputField({name, type}) {
+  type ||= "text";
+
+  let badge = "";
+  /*
+  badge = (
+    <div className="badge badge-outline badge-error mx-2 p-4">
+      <FiAlertTriangle /> Email required.
+    </div>
+  );
+  badge = (
+    <div className="badge badge-outline badge-info mx-2 p-4">
+      <FiCheck />
+    </div>
+  }
+  */
+
+  
+  return (
+    <div className="my-2">
+      <input type={type} name={name} className="input input-neutral" />
+      { badge }
     </div>
   );
 }
