@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react(), 
+    react(),
     tailwindcss(),
     VitePWA({
       registerType: 'prompt',
@@ -37,4 +37,7 @@ export default defineConfig({
         type: 'module',
       },
     })],
+  build: {
+    sourcemap: true,
+  }
 });

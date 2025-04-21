@@ -2,8 +2,9 @@
 import { HashRouter, Routes, Route } from 'react-router';
 
 import appLogo from './assets/pizza.svg';
-import PWABadge from './PWABadge.jsx';
-import LoginForm from './login-form.jsx';
+import PWABadge from './pwa-badge.jsx';
+import LoginPage from './login-page.jsx';
+import SnacksPage from './snacks-page.jsx';
 
 function App() {
   return (
@@ -20,14 +21,15 @@ function App() {
           </div>
           <div className="card">
             <Routes>
-              <Route index element={<LoginForm />} />
+              <Route path="/" exact element={<LoginPage />} />
+              <Route path="/snacks" element={<SnacksPage />} />
             </Routes>
           </div>
           <PWABadge />
         </div>
       </div>
     </HashRouter>
-  )
+  );
 }
 
 export default App;
