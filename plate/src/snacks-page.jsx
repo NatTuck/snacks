@@ -37,7 +37,52 @@ function SnacksPage() {
             onSelect={setDate} />
         </div>
       </div>
-      <p>Summary</p>
+      <div className="stats shadow mt-4 w-full">
+        {useStore((state) => {
+          const snacks = state.snacks.filter(snack => 
+            format(new Date(snack.eaten_on), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
+          );
+          
+          const totals = snacks.reduce((acc, snack) => {
+            acc.calories += snack.food.cals_per_serv;
+            acc.carbs += snack.food.car_per_serv;
+            acc.fat += snack.food.fat_per_serv;
+            acc.protein += snack.food.pro_per_serv;
+            acc.fiber += snack.food.fib_per_serv;
+            return acc;
+          }, { calories: 0, carbs: 0, fat: 0, protein: 0, fiber: 0 });
+          
+          return (
+            <>
+              <div className="stat">
+                <div className="stat-title">Total Calories</div>
+                <div className="stat-value">{totals.calories}</div>
+                <div className="stat-desc">For {format(date, 'MMM d, yyyy')}</div>
+              </div>
+              
+              <div className="stat">
+                <div className="stat-title">Carbs</div>
+                <div className="stat-value">{totals.carbs}g</div>
+              </div>
+              
+              <div className="stat">
+                <div className="stat-title">Fat</div>
+                <div className="stat-value">{totals.fat}g</div>
+              </div>
+              
+              <div className="stat">
+                <div className="stat-title">Protein</div>
+                <div className="stat-value">{totals.protein}g</div>
+              </div>
+              
+              <div className="stat">
+                <div className="stat-title">Fiber</div>
+                <div className="stat-value">{totals.fiber}g</div>
+              </div>
+            </>
+          );
+        })}
+      </div>
       
       <div className="card mt-4 p-4">
         <h2 className="text-xl font-bold mb-4">Add Snack</h2>
@@ -165,7 +210,50 @@ function SnacksPage() {
         </form>
       </div>
       
-      <p>Snacks List</p>
+      <div className="overflow-x-auto mt-4">
+        <table className="table table-zebra">
+          <thead>
+            <tr>
+              <th>Food Name</th>
+              <th>Calories</th>
+              <th>Serving Size</th>
+              <th>Carbs</th>
+              <th>Fat</th>
+              <th>Protein</th>
+              <th>Fiber</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {useStore((state) => {
+              const filteredSnacks = state.snacks.filter(snack => 
+                format(new Date(snack.eaten_on), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
+              );
+              
+              return filteredSnacks.length > 0 ? (
+                filteredSnacks.map(snack => (
+                  <tr key={snack.id}>
+                    <td>{snack.food.name}</td>
+                    <td>{snack.food.cals_per_serv}</td>
+                    <td>{snack.food.serv_size} {snack.food.serv_unit}</td>
+                    <td>{snack.food.car_per_serv}g</td>
+                    <td>{snack.food.fat_per_serv}g</td>
+                    <td>{snack.food.pro_per_serv}g</td>
+                    <td>{snack.food.fib_per_serv}g</td>
+                    <td>
+                      <button className="btn btn-sm btn-error">Delete</button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="8" className="text-center">No snacks for this day</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
