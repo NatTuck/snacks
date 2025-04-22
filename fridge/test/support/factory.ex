@@ -12,6 +12,13 @@ defmodule Fridge.Factory do
     }
   end
 
+  def user_with_password_factory do
+    struct!(
+      user_factory(),
+      %{password: "password123"}
+    )
+  end
+
   def food_factory do
     %Food{
       name: sequence(:name, &"Food #{&1}"),
@@ -20,15 +27,14 @@ defmodule Fridge.Factory do
       fat_per_serv: 42,
       fib_per_serv: 42,
       pro_per_serv: 42,
-      serv_size: 1.0,
-      serv_unit: "cup"
+      serv_size: 42,
+      serv_unit: "some serv_unit"
     }
   end
 
   def snack_factory do
     %Snack{
-      eaten_on: ~U[2025-04-22 12:00:00Z],
-      food: build(:food)
+      eaten_on: ~D[2025-04-16]
     }
   end
 

@@ -1,8 +1,6 @@
 defmodule FridgeWeb.UserControllerTest do
   use FridgeWeb.ConnCase
 
-  import Fridge.UsersFixtures
-
   alias Fridge.Users.User
 
   @create_attrs %{
@@ -82,7 +80,7 @@ defmodule FridgeWeb.UserControllerTest do
   end
 
   defp create_user(_) do
-    user = user_fixture()
+    user = insert(:user)
     %{user: user}
   end
 end

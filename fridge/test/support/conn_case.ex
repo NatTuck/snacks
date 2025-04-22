@@ -28,6 +28,7 @@ defmodule FridgeWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import FridgeWeb.ConnCase
+      import Fridge.Factory
     end
   end
 

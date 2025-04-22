@@ -1,8 +1,6 @@
 defmodule FridgeWeb.AuthControllerTest do
   use FridgeWeb.ConnCase
 
-  import Fridge.UsersFixtures
-
   alias Fridge.Users.User
 
   @create_attrs %{
@@ -58,7 +56,7 @@ defmodule FridgeWeb.AuthControllerTest do
 
   defp create_user(_) do
     # Create a user with known credentials for login tests
-    {:ok, user} = Fridge.Users.create_user(@create_attrs)
+    user = insert(:user, email: "test@example.com", password_hash: Argon2.hash_pwd_salt("password123"))
     %{user: user}
   end
 end

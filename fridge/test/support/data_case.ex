@@ -24,6 +24,7 @@ defmodule Fridge.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Fridge.DataCase
+      import Fridge.Factory
     end
   end
 

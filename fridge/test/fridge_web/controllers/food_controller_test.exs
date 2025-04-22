@@ -1,8 +1,6 @@
 defmodule FridgeWeb.FoodControllerTest do
   use FridgeWeb.ConnCase
 
-  import Fridge.FoodsFixtures
-
   alias Fridge.Foods.Food
 
   @create_attrs %{
@@ -106,7 +104,7 @@ defmodule FridgeWeb.FoodControllerTest do
   end
 
   defp create_food(_) do
-    food = food_fixture()
+    food = insert(:food)
     %{food: food}
   end
 end

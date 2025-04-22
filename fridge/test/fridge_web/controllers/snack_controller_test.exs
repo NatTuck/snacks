@@ -1,8 +1,6 @@
 defmodule FridgeWeb.SnackControllerTest do
   use FridgeWeb.ConnCase
 
-  import Fridge.SnacksFixtures
-
   alias Fridge.Snacks.Snack
 
   @create_attrs %{
@@ -78,7 +76,7 @@ defmodule FridgeWeb.SnackControllerTest do
   end
 
   defp create_snack(_) do
-    snack = snack_fixture()
+    snack = insert(:snack)
     %{snack: snack}
   end
 end
