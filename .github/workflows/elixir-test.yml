@@ -1,0 +1,60 @@
+name: Elixir CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'fridge/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'fridge/**'
+
+jobs:
+  test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    
+    services:
+      db:
+        image: postgres:14
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Elixir
+      uses: erlef/setup-beam@v1
+      with:
+        elixir-version: '1.15.7'
+        otp-version: '26.0'
+    
+    - name: Restore dependencies cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          fridge/deps
+          fridge/_build
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+    
+    - name: Install dependencies
+      run: |
+        cd fridge
+        mix deps.get
+    
+    - name: Run tests
+      run: |
+        cd fridge
+        mix test
+      env:
+        MIX_ENV: test
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/fridge_test
