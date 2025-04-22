@@ -23,6 +23,9 @@ defmodule FridgeWeb.Router do
   scope "/api/v1", FridgeWeb do
     pipe_through :api
 
+    post "/auth/login", AuthController, :login
+    post "/auth/register", AuthController, :register
+    
     resources "/users", UserController, except: [:new, :edit]
     resources "/foods", FoodController, except: [:new, :edit]
     resources "/snacks", SnackController, except: [:new, :edit]

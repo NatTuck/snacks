@@ -7,6 +7,37 @@ defmodule Fridge.Users do
   alias Fridge.Repo
 
   alias Fridge.Users.User
+  
+  @doc """
+  Gets a user by email.
+  
+  Returns nil if the user does not exist.
+  """
+  def get_user_by_email(email) do
+    Repo.get_by(User, email: email)
+  end
+  
+  @doc """
+  Authenticates a user.
+  
+  Returns `{:ok, user}` if the user exists and the password is correct.
+  Returns `{:error, :unauthorized}` if the user exists but the password is incorrect.
+  Returns `{:error, :not_found}` if the user does not exist.
+  """
+  def authenticate_user(email, password) do
+    user = get_user_by_email(email)
+    
+    cond do
+      user && Argon2.verify_pass(password, user.password_hash) ->
+        {:ok, user}
+      user ->
+        {:error, :unauthorized}
+      true ->
+        # Prevent timing attacks by simulating password check
+        Argon2.no_user_verify()
+        {:error, :not_found}
+    end
+  end
 
   @doc """
   Returns the list of users.

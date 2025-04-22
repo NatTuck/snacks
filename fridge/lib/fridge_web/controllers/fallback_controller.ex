@@ -21,4 +21,12 @@ defmodule FridgeWeb.FallbackController do
     |> put_view(html: FridgeWeb.ErrorHTML, json: FridgeWeb.ErrorJSON)
     |> render(:"404")
   end
+  
+  # This clause handles unauthorized errors.
+  def call(conn, {:error, :unauthorized}) do
+    conn
+    |> put_status(:unauthorized)
+    |> put_view(json: FridgeWeb.ErrorJSON)
+    |> render(:"401")
+  end
 end

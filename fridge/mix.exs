@@ -57,7 +57,10 @@ defmodule Fridge.MixProject do
       {:gettext, "~> 0.26"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      # Auth dependencies
+      {:argon2_elixir, "~> 3.0"},
+      {:guardian, "~> 2.3"}
     ]
   end
 
