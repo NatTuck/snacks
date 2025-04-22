@@ -13,7 +13,7 @@ defmodule Fridge.Snacks.Snack do
   @doc false
   def changeset(snack, attrs) do
     snack
-    |> cast(attrs, [:eaten_on])
-    |> validate_required([:eaten_on])
+    |> cast(attrs, [:eaten_on, :user_id, :food_id])
+    |> validate_required([:eaten_on, :user_id, :food_id])
   end
 end
