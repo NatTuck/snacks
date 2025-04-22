@@ -58,9 +58,15 @@ function SnacksTable({ date }) {
   const snacks = useStore((state) => state.snacks);
   const removeSnack = useStore((state) => state.removeSnack);
   
-  const filteredSnacks = snacks.filter(snack => 
-    format(new Date(snack.eaten_on), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
-  );
+  console.log("All snacks in store:", snacks);
+  console.log("Current date for filtering:", format(date, 'yyyy-MM-dd'));
+  
+  const filteredSnacks = snacks.filter(snack => {
+    console.log("Comparing snack date:", snack.eaten_on, "with current date:", format(date, 'yyyy-MM-dd'));
+    return format(new Date(snack.eaten_on), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
+  });
+  
+  console.log("Filtered snacks:", filteredSnacks);
   
   return (
     <table className="table table-zebra">
@@ -152,16 +158,17 @@ function SnacksPage() {
             eaten_on: format(date, 'yyyy-MM-dd'),
             food: {
               name: data.name,
-              cals_per_serv: parseInt(data.cals_per_serv),
-              serv_size: parseInt(data.serv_size),
-              serv_unit: data.serv_unit,
-              car_per_serv: parseInt(data.car_per_serv),
-              fat_per_serv: parseInt(data.fat_per_serv),
-              pro_per_serv: parseInt(data.pro_per_serv),
-              fib_per_serv: parseInt(data.fib_per_serv)
+              cals_per_serv: parseInt(data.cals_per_serv) || 0,
+              serv_size: parseInt(data.serv_size) || 0,
+              serv_unit: data.serv_unit || '',
+              car_per_serv: parseInt(data.car_per_serv) || 0,
+              fat_per_serv: parseInt(data.fat_per_serv) || 0,
+              pro_per_serv: parseInt(data.pro_per_serv) || 0,
+              fib_per_serv: parseInt(data.fib_per_serv) || 0
             }
           };
           
+          console.log("Adding new snack:", newSnack);
           addSnack(newSnack);
           reset();
         })}>

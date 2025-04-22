@@ -10,7 +10,11 @@ export const useStore = create((set) => ({
   },
 
   addSnack: (snack) => {
-    set((state) => ({ snacks: [...state.snacks, snack] }));
+    set((state) => {
+      console.log("Current snacks:", state.snacks);
+      console.log("Adding snack:", snack);
+      return { snacks: [...state.snacks, snack] };
+    });
   },
   
   removeSnack: (id) => {
