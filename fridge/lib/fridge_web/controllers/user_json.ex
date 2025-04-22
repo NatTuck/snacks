@@ -18,8 +18,7 @@ defmodule FridgeWeb.UserJSON do
   defp data(%User{} = user) do
     %{
       id: user.id,
-      email: user.email,
-      password_hash: user.password_hash
+      email: user.email
     }
   end
 end
