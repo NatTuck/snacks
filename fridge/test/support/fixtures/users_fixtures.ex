@@ -11,8 +11,8 @@ defmodule Fridge.UsersFixtures do
     {:ok, user} =
       attrs
       |> Enum.into(%{
-        email: "some email",
-        password_hash: "some password_hash"
+        email: "test@example.com",
+        password: "password123"
       })
       |> Fridge.Users.create_user()
 
