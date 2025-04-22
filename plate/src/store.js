@@ -12,5 +12,11 @@ export const useStore = create((set) => ({
   addSnack: (snack) => {
     set((state) => ({ snacks: [...state.snacks, snack] }));
   },
+  
+  removeSnack: (id) => {
+    set((state) => ({ 
+      snacks: state.snacks.filter(snack => snack.id !== id) 
+    }));
+  },
 }));
 
