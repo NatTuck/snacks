@@ -56,7 +56,11 @@ defmodule FridgeWeb.AuthControllerTest do
 
   defp create_user(_) do
     # Create a user with known credentials for login tests
-    user = insert(:user, email: "test@example.com", password_hash: Argon2.hash_pwd_salt("password123"))
-    %{user: user}
+    password = "password123"
+    user = insert(:user, 
+      email: "test@example.com", 
+      password_hash: Argon2.hash_pwd_salt(password)
+    )
+    %{user: user, password: password}
   end
 end

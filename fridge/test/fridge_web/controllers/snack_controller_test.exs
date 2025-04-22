@@ -3,12 +3,21 @@ defmodule FridgeWeb.SnackControllerTest do
 
   alias Fridge.Snacks.Snack
 
-  @create_attrs %{
-    eaten_on: ~D[2025-04-16]
-  }
-  @update_attrs %{
-    eaten_on: ~D[2025-04-17]
-  }
+  setup do
+    user = insert(:user)
+    food = insert(:food)
+    
+    @create_attrs %{
+      eaten_on: ~D[2025-04-16],
+      user_id: user.id,
+      food_id: food.id
+    }
+    @update_attrs %{
+      eaten_on: ~D[2025-04-17]
+    }
+    
+    %{user: user, food: food}
+  end
   @invalid_attrs %{eaten_on: nil}
 
   setup %{conn: conn} do

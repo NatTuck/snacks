@@ -4,12 +4,12 @@ defmodule FridgeWeb.UserControllerTest do
   alias Fridge.Users.User
 
   @create_attrs %{
-    email: "some email",
-    password_hash: "some password_hash"
+    email: "user@example.com",
+    password: "password123"
   }
   @update_attrs %{
-    email: "some updated email",
-    password_hash: "some updated password_hash"
+    email: "updated@example.com",
+    password: "newpassword123"
   }
   @invalid_attrs %{email: nil, password_hash: nil}
 
@@ -33,8 +33,7 @@ defmodule FridgeWeb.UserControllerTest do
 
       assert %{
                "id" => ^id,
-               "email" => "some email",
-               "password_hash" => "some password_hash"
+               "email" => "user@example.com"
              } = json_response(conn, 200)["data"]
     end
 
@@ -55,8 +54,7 @@ defmodule FridgeWeb.UserControllerTest do
 
       assert %{
                "id" => ^id,
-               "email" => "some updated email",
-               "password_hash" => "some updated password_hash"
+               "email" => "updated@example.com"
              } = json_response(conn, 200)["data"]
     end
 

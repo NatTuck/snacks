@@ -33,8 +33,13 @@ defmodule Fridge.Factory do
   end
 
   def snack_factory do
+    user = build(:user)
+    food = build(:food)
+    
     %Snack{
-      eaten_on: ~D[2025-04-16]
+      eaten_on: ~D[2025-04-16],
+      user_id: user.id,
+      food_id: food.id
     }
   end
 
