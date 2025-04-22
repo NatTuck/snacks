@@ -27,6 +27,52 @@ snacks:
 - food_id
 - eaten_on
 
+## API Examples
+
+### Authentication
+
+Register a new user:
+```bash
+curl -X POST http://localhost:4000/api/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"user": {"email": "user@example.com", "password": "password123"}}'
+```
+
+Login and get a JWT token:
+```bash
+curl -X POST http://localhost:4000/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "user@example.com", "password": "password123"}'
+```
+
+### Foods
+
+List all foods:
+```bash
+curl -X GET http://localhost:4000/api/v1/foods \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+Create a new food:
+```bash
+curl -X POST http://localhost:4000/api/v1/foods \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "food": {
+      "name": "Apple",
+      "cals_per_serv": 95,
+      "serv_size": 1,
+      "serv_unit": "medium apple",
+      "car_per_serv": 25,
+      "fat_per_serv": 0,
+      "pro_per_serv": 0,
+      "fib_per_serv": 4
+    }
+  }'
+```
+
 ## Phoenix
 
 To start your Phoenix server:
