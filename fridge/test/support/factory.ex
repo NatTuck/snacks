@@ -7,7 +7,7 @@ defmodule Fridge.Factory do
 
   def user_factory do
     %User{
-      email: sequence(:email, &"user-#{&1}@example.com"),
+      email: sequence(:email, &"user#{&1}@example.com"),
       password_hash: Argon2.hash_pwd_salt("password123")
     }
   end
@@ -33,13 +33,10 @@ defmodule Fridge.Factory do
   end
 
   def snack_factory do
-    user = insert(:user)
-    food = insert(:food)
-    
     %Snack{
       eaten_on: ~D[2025-04-16],
-      user_id: user.id,
-      food_id: food.id
+      user: build(:user),
+      food: build(:food)
     }
   end
 

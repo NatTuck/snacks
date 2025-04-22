@@ -28,17 +28,17 @@ defmodule FridgeWeb.SnackControllerTest do
 
   describe "index" do
     test "lists all snacks", %{conn: conn} do
-      conn = get(conn, ~p"/api/snacks")
+      conn = get(conn, ~p"/api/v1/snacks")
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create snack" do
     test "renders snack when data is valid", %{conn: conn, create_attrs: create_attrs} do
-      conn = post(conn, ~p"/api/snacks", snack: create_attrs)
+      conn = post(conn, ~p"/api/v1/snacks", snack: create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get(conn, ~p"/api/snacks/#{id}")
+      conn = get(conn, ~p"/api/v1/snacks/#{id}")
 
       assert %{
                "id" => ^id,
@@ -47,7 +47,7 @@ defmodule FridgeWeb.SnackControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, ~p"/api/snacks", snack: @invalid_attrs)
+      conn = post(conn, ~p"/api/v1/snacks", snack: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -56,10 +56,10 @@ defmodule FridgeWeb.SnackControllerTest do
     setup [:create_snack]
 
     test "renders snack when data is valid", %{conn: conn, snack: %Snack{id: id} = snack, update_attrs: update_attrs} do
-      conn = put(conn, ~p"/api/snacks/#{snack}", snack: update_attrs)
+      conn = put(conn, ~p"/api/v1/snacks/#{snack}", snack: update_attrs)
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get(conn, ~p"/api/snacks/#{id}")
+      conn = get(conn, ~p"/api/v1/snacks/#{id}")
 
       assert %{
                "id" => ^id,
@@ -68,7 +68,7 @@ defmodule FridgeWeb.SnackControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, snack: snack} do
-      conn = put(conn, ~p"/api/snacks/#{snack}", snack: @invalid_attrs)
+      conn = put(conn, ~p"/api/v1/snacks/#{snack}", snack: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -77,11 +77,11 @@ defmodule FridgeWeb.SnackControllerTest do
     setup [:create_snack]
 
     test "deletes chosen snack", %{conn: conn, snack: snack} do
-      conn = delete(conn, ~p"/api/snacks/#{snack}")
+      conn = delete(conn, ~p"/api/v1/snacks/#{snack}")
       assert response(conn, 204)
 
       assert_error_sent 404, fn ->
-        get(conn, ~p"/api/snacks/#{snack}")
+        get(conn, ~p"/api/v1/snacks/#{snack}")
       end
     end
   end

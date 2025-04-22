@@ -1,7 +1,6 @@
 defmodule FridgeWeb.AuthControllerTest do
   use FridgeWeb.ConnCase
 
-  alias Fridge.Users.User
 
   @create_attrs %{
     email: "test@example.com",
@@ -24,7 +23,7 @@ defmodule FridgeWeb.AuthControllerTest do
   describe "register user" do
     test "renders user when data is valid", %{conn: conn} do
       conn = post(conn, ~p"/api/v1/auth/register", user: @create_attrs)
-      assert %{"id" => id, "email" => "test@example.com", "token" => token} = json_response(conn, 201)["data"]
+      assert %{"id" => _id, "email" => "test@example.com", "token" => token} = json_response(conn, 201)["data"]
       assert is_binary(token)
     end
 
@@ -39,7 +38,7 @@ defmodule FridgeWeb.AuthControllerTest do
 
     test "renders user and token when credentials are valid", %{conn: conn} do
       conn = post(conn, ~p"/api/v1/auth/login", @login_attrs)
-      assert %{"id" => id, "email" => "test@example.com", "token" => token} = json_response(conn, 200)["data"]
+      assert %{"id" => _id, "email" => "test@example.com", "token" => token} = json_response(conn, 200)["data"]
       assert is_binary(token)
     end
 
