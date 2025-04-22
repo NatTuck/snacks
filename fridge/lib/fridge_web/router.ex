@@ -14,6 +14,11 @@ defmodule FridgeWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :api_auth do
+    plug :accepts, ["json"]
+    plug FridgeWeb.Auth.Pipeline
+  end
+
   scope "/", FridgeWeb do
     pipe_through :browser
 
@@ -25,6 +30,11 @@ defmodule FridgeWeb.Router do
 
     post "/auth/login", AuthController, :login
     post "/auth/register", AuthController, :register
+  end
+
+  # Protected API routes that require authentication
+  scope "/api/v1", FridgeWeb do
+    pipe_through [:api, :api_auth]
     
     resources "/users", UserController, except: [:new, :edit]
     resources "/foods", FoodController, except: [:new, :edit]
