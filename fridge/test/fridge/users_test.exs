@@ -6,26 +6,34 @@ defmodule Fridge.UsersTest do
   describe "users" do
     alias Fridge.Users.User
 
-    import Fridge.UsersFixtures
+    @valid_attrs %{email: "test@example.com", password: "password123"}
+    @update_attrs %{email: "updated@example.com", password: "newpassword123"}
+    @invalid_attrs %{email: nil, password: nil}
 
-    @invalid_attrs %{email: nil, password_hash: nil}
+    def user_fixture(attrs \\ %{}) do
+      {:ok, user} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Users.create_user()
+
+      # Remove password as it's not stored in the DB
+      %{user | password: nil}
+    end
 
     test "list_users/0 returns all users" do
       user = user_fixture()
-      assert Users.list_users() == [user]
+      assert Users.list_users() == [%{user | password: nil}]
     end
 
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
-      assert Users.get_user!(user.id) == user
+      assert Users.get_user!(user.id) == %{user | password: nil}
     end
 
     test "create_user/1 with valid data creates a user" do
-      valid_attrs = %{email: "some email", password_hash: "some password_hash"}
-
-      assert {:ok, %User{} = user} = Users.create_user(valid_attrs)
-      assert user.email == "some email"
-      assert user.password_hash == "some password_hash"
+      assert {:ok, %User{} = user} = Users.create_user(@valid_attrs)
+      assert user.email == "test@example.com"
+      assert Argon2.verify_pass("password123", user.password_hash)
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -34,17 +42,15 @@ defmodule Fridge.UsersTest do
 
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
-      update_attrs = %{email: "some updated email", password_hash: "some updated password_hash"}
-
-      assert {:ok, %User{} = user} = Users.update_user(user, update_attrs)
-      assert user.email == "some updated email"
-      assert user.password_hash == "some updated password_hash"
+      assert {:ok, %User{} = user} = Users.update_user(user, @update_attrs)
+      assert user.email == "updated@example.com"
+      assert Argon2.verify_pass("newpassword123", user.password_hash)
     end
 
     test "update_user/2 with invalid data returns error changeset" do
       user = user_fixture()
       assert {:error, %Ecto.Changeset{}} = Users.update_user(user, @invalid_attrs)
-      assert user == Users.get_user!(user.id)
+      assert %{user | password: nil} == Users.get_user!(user.id)
     end
 
     test "delete_user/1 deletes the user" do

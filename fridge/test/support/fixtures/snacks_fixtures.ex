@@ -4,17 +4,15 @@ defmodule Fridge.SnacksFixtures do
   entities via the `Fridge.Snacks` context.
   """
 
-  import Fridge.UsersFixtures
-  import Fridge.FoodsFixtures
+  import Fridge.Factory
 
   @doc """
   Generate a snack.
   """
   def snack_fixture(attrs \\ %{}) do
-    # Create dependencies if not provided
-    user_id = Map.get(attrs, :user_id) || user_fixture().id
-    food_id = Map.get(attrs, :food_id) || food_fixture().id
-
+    user_id = Map.get(attrs, :user_id) || insert(:user).id
+    food_id = Map.get(attrs, :food_id) || insert(:food).id
+    
     {:ok, snack} =
       attrs
       |> Enum.into(%{
