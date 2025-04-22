@@ -11,10 +11,18 @@ defmodule FridgeWeb.UserControllerTest do
     email: "updated@example.com",
     password: "newpassword123"
   }
-  @invalid_attrs %{email: nil, password_hash: nil}
+  @invalid_attrs %{email: nil, password: nil}
 
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    user = insert(:user)
+    {:ok, token, _claims} = Fridge.Auth.Guardian.encode_and_sign(user)
+    
+    conn = 
+      conn
+      |> put_req_header("accept", "application/json")
+      |> put_req_header("authorization", "Bearer #{token}")
+      
+    {:ok, conn: conn, user: user}
   end
 
   describe "index" do

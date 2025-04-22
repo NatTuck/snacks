@@ -26,7 +26,15 @@ defmodule FridgeWeb.FoodControllerTest do
   @invalid_attrs %{name: nil, cals_per_serv: nil, serv_size: nil, serv_unit: nil, car_per_serv: nil, fat_per_serv: nil, pro_per_serv: nil, fib_per_serv: nil}
 
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    user = insert(:user)
+    {:ok, token, _claims} = Fridge.Auth.Guardian.encode_and_sign(user)
+    
+    conn = 
+      conn
+      |> put_req_header("accept", "application/json")
+      |> put_req_header("authorization", "Bearer #{token}")
+      
+    {:ok, conn: conn, user: user}
   end
 
   describe "index" do
