@@ -10,7 +10,7 @@ function StatsDisplay({ date }) {
   const snacks = useStore((state) => state.snacks);
   
   const filteredSnacks = snacks.filter(snack => 
-    format(new Date(snack.eaten_on), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
+    snack.eaten_on === format(date, 'yyyy-MM-dd')
   );
   
   const totals = filteredSnacks.reduce((acc, snack) => {
@@ -63,7 +63,11 @@ function SnacksTable({ date }) {
   
   const filteredSnacks = snacks.filter(snack => {
     console.log("Comparing snack date:", snack.eaten_on, "with current date:", format(date, 'yyyy-MM-dd'));
-    return format(new Date(snack.eaten_on), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
+    // Convert both to simple strings for comparison
+    const snackDateStr = snack.eaten_on;
+    const currentDateStr = format(date, 'yyyy-MM-dd');
+    console.log("String comparison:", snackDateStr, "===", currentDateStr, snackDateStr === currentDateStr);
+    return snackDateStr === currentDateStr;
   });
   
   console.log("Filtered snacks:", filteredSnacks);
