@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { format, startOfDay } from 'date-fns';
+import { format, startOfDay, addDays } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
 
 function SnacksPage() {
@@ -12,6 +12,12 @@ function SnacksPage() {
         <span className="m-2">
           {format(date, "EEEE, yyyy-MM-dd")}
         </span>
+        <button className="btn" onClick={() => setDate(addDays(date, -1))}>
+          Previous Day
+        </button>
+        <button className="btn" onClick={() => setDate(addDays(date, 1))}>
+          Next Day
+        </button>
         <button className="btn" popoverTarget="day-picker-po">
           Calendar
         </button>
