@@ -5,6 +5,19 @@ import { DayPicker } from 'react-day-picker';
 import { useForm } from 'react-hook-form';
 import { useStore } from './store';
 
+// FormInput component for consistent form field styling
+function FormInput({ label, error, children }) {
+  return (
+    <div className="form-control w-full">
+      <label className="label">
+        <span className="label-text">{label}</span>
+      </label>
+      {children}
+      {error && <span className="text-error text-sm mt-1">{error}</span>}
+    </div>
+  );
+}
+
 // Component for displaying stats
 function StatsDisplay({ date }) {
   const snacks = useStore((state) => state.snacks);
@@ -176,101 +189,75 @@ function SnacksPage() {
           addSnack(newSnack);
           reset();
         })}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Food Name</span>
-              </label>
+          <div className="grid grid-cols-1 gap-4">
+            <FormInput label="Food Name" error={errors.name?.message}>
               <input 
                 type="text" 
-                className="input input-bordered" 
+                className="input input-bordered w-full" 
                 {...register("name", { required: "Food name is required" })} 
               />
-              {errors.name && <span className="text-error text-sm">{errors.name.message}</span>}
-            </div>
+            </FormInput>
             
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Calories per Serving</span>
-              </label>
+            <FormInput label="Calories per Serving" error={errors.cals_per_serv?.message}>
               <input 
                 type="number" 
-                className="input input-bordered" 
+                className="input input-bordered w-full" 
                 {...register("cals_per_serv", { required: "Calories is required", min: 0 })} 
               />
-              {errors.cals_per_serv && <span className="text-error text-sm">{errors.cals_per_serv.message}</span>}
+            </FormInput>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <FormInput label="Serving Size" error={errors.serv_size?.message}>
+                <input 
+                  type="number" 
+                  className="input input-bordered w-full" 
+                  {...register("serv_size", { required: "Serving size is required", min: 0 })} 
+                />
+              </FormInput>
+              
+              <FormInput label="Serving Unit" error={errors.serv_unit?.message}>
+                <input 
+                  type="text" 
+                  className="input input-bordered w-full" 
+                  {...register("serv_unit", { required: "Serving unit is required" })} 
+                />
+              </FormInput>
             </div>
             
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Serving Size</span>
-              </label>
-              <input 
-                type="number" 
-                className="input input-bordered" 
-                {...register("serv_size", { required: "Serving size is required", min: 0 })} 
-              />
-              {errors.serv_size && <span className="text-error text-sm">{errors.serv_size.message}</span>}
+            <div className="grid grid-cols-2 gap-4">
+              <FormInput label="Carbs per Serving (g)" error={errors.car_per_serv?.message}>
+                <input 
+                  type="number" 
+                  className="input input-bordered w-full" 
+                  {...register("car_per_serv", { required: "Carbs is required", min: 0 })} 
+                />
+              </FormInput>
+              
+              <FormInput label="Fat per Serving (g)" error={errors.fat_per_serv?.message}>
+                <input 
+                  type="number" 
+                  className="input input-bordered w-full" 
+                  {...register("fat_per_serv", { required: "Fat is required", min: 0 })} 
+                />
+              </FormInput>
             </div>
             
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Serving Unit</span>
-              </label>
-              <input 
-                type="text" 
-                className="input input-bordered" 
-                {...register("serv_unit", { required: "Serving unit is required" })} 
-              />
-              {errors.serv_unit && <span className="text-error text-sm">{errors.serv_unit.message}</span>}
-            </div>
-            
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Carbs per Serving (g)</span>
-              </label>
-              <input 
-                type="number" 
-                className="input input-bordered" 
-                {...register("car_per_serv", { required: "Carbs is required", min: 0 })} 
-              />
-              {errors.car_per_serv && <span className="text-error text-sm">{errors.car_per_serv.message}</span>}
-            </div>
-            
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Fat per Serving (g)</span>
-              </label>
-              <input 
-                type="number" 
-                className="input input-bordered" 
-                {...register("fat_per_serv", { required: "Fat is required", min: 0 })} 
-              />
-              {errors.fat_per_serv && <span className="text-error text-sm">{errors.fat_per_serv.message}</span>}
-            </div>
-            
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Protein per Serving (g)</span>
-              </label>
-              <input 
-                type="number" 
-                className="input input-bordered" 
-                {...register("pro_per_serv", { required: "Protein is required", min: 0 })} 
-              />
-              {errors.pro_per_serv && <span className="text-error text-sm">{errors.pro_per_serv.message}</span>}
-            </div>
-            
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Fiber per Serving (g)</span>
-              </label>
-              <input 
-                type="number" 
-                className="input input-bordered" 
-                {...register("fib_per_serv", { required: "Fiber is required", min: 0 })} 
-              />
-              {errors.fib_per_serv && <span className="text-error text-sm">{errors.fib_per_serv.message}</span>}
+            <div className="grid grid-cols-2 gap-4">
+              <FormInput label="Protein per Serving (g)" error={errors.pro_per_serv?.message}>
+                <input 
+                  type="number" 
+                  className="input input-bordered w-full" 
+                  {...register("pro_per_serv", { required: "Protein is required", min: 0 })} 
+                />
+              </FormInput>
+              
+              <FormInput label="Fiber per Serving (g)" error={errors.fib_per_serv?.message}>
+                <input 
+                  type="number" 
+                  className="input input-bordered w-full" 
+                  {...register("fib_per_serv", { required: "Fiber is required", min: 0 })} 
+                />
+              </FormInput>
             </div>
           </div>
           
