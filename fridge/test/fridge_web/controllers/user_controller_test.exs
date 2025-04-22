@@ -26,9 +26,15 @@ defmodule FridgeWeb.UserControllerTest do
   end
 
   describe "index" do
-    test "lists all users", %{conn: conn} do
+    test "lists all users", %{conn: conn, user: existing_user} do
       conn = get(conn, ~p"/api/v1/users")
-      assert json_response(conn, 200)["data"] == []
+      users_data = json_response(conn, 200)["data"]
+      assert length(users_data) >= 1
+      
+      # Verify the authenticated user is in the list
+      assert Enum.any?(users_data, fn user -> 
+        user["id"] == existing_user.id && user["email"] == existing_user.email
+      end)
     end
   end
 
