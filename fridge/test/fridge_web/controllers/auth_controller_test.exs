@@ -23,7 +23,8 @@ defmodule FridgeWeb.AuthControllerTest do
   describe "register user" do
     test "renders user when data is valid", %{conn: conn} do
       conn = post(conn, ~p"/api/v1/auth/register", user: @create_attrs)
-      assert %{"id" => _id, "email" => "test@example.com", "token" => token} = json_response(conn, 201)["data"]
+      response = json_response(conn, 201)["data"]
+      assert %{"user" => %{"id" => _id, "email" => "test@example.com"}, "token" => token, "snacks" => []} = response
       assert is_binary(token)
     end
 
@@ -38,8 +39,22 @@ defmodule FridgeWeb.AuthControllerTest do
 
     test "renders user and token when credentials are valid", %{conn: conn} do
       conn = post(conn, ~p"/api/v1/auth/login", @login_attrs)
-      assert %{"id" => _id, "email" => "test@example.com", "token" => token} = json_response(conn, 200)["data"]
+      response = json_response(conn, 200)["data"]
+      assert %{"user" => %{"id" => _id, "email" => "test@example.com"}, "token" => token, "snacks" => []} = response
       assert is_binary(token)
+    end
+
+    test "renders user with snacks when user has snacks for today", %{conn: conn, user: user} do
+      # Create a snack for today
+      food = insert(:food)
+      insert(:snack, user_id: user.id, food_id: food.id, eaten_on: Date.utc_today())
+      
+      conn = post(conn, ~p"/api/v1/auth/login", @login_attrs)
+      response = json_response(conn, 200)["data"]
+      
+      assert %{"user" => %{"id" => _id, "email" => "test@example.com"}, "token" => token, "snacks" => snacks} = response
+      assert is_binary(token)
+      assert length(snacks) == 1
     end
 
     test "renders errors when credentials are invalid", %{conn: conn} do
