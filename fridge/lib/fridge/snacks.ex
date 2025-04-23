@@ -7,6 +7,7 @@ defmodule Fridge.Snacks do
   alias Fridge.Repo
 
   alias Fridge.Snacks.Snack
+  alias Fridge.Foods.Food # Alias Food for preloading
 
   @doc """
   Returns the list of snacks.
@@ -19,6 +20,26 @@ defmodule Fridge.Snacks do
   """
   def list_snacks do
     Repo.all(Snack)
+  end
+
+  @doc """
+  Returns the list of snacks for a given user eaten today, with food preloaded.
+
+  ## Examples
+
+      iex> list_snacks_for_user_today(user_id)
+      [%Snack{food: %Food{}}, ...]
+
+  """
+  def list_snacks_for_user_today(user_id) do
+    today = Date.utc_today()
+
+    query =
+      from s in Snack,
+      where: s.user_id == ^user_id and s.eaten_on == ^today,
+      preload: [:food] # Preload the associated food
+
+    Repo.all(query)
   end
 
   @doc """
