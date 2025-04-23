@@ -4,8 +4,8 @@ defmodule Fridge.Snacks.Snack do
 
   schema "snacks" do
     field :eaten_on, :date
-    field :user_id, :id
-    field :food_id, :id
+    belongs_to :user, Fridge.Users.User
+    belongs_to :food, Fridge.Foods.Food
 
     timestamps(type: :utc_datetime)
   end

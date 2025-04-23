@@ -58,10 +58,10 @@ defmodule Fridge.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      # Auth dependencies
       {:argon2_elixir, "~> 3.0"},
       {:guardian, "~> 2.3"},
-      {:ex_machina, "~> 2.7.0", only: :test}
+      {:ex_machina, "~> 2.7.0", only: :test},
+      {:cors_plug, "~> 3.0"}
     ]
   end
 

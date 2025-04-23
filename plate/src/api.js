@@ -22,7 +22,9 @@ async function handleApiResponse(response) {
   try {
     // Try to parse JSON regardless of status, backend might send error details
     responseData = await response.json();
-  } catch (e) {
+  } 
+  /* eslint-disable no-unused-vars */
+  catch (e) {
     // If JSON parsing fails, use status text for non-ok responses
     if (!response.ok) {
       throw new ApiError(response.statusText || 'Unknown API error', response.status);

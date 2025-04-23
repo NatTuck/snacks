@@ -11,14 +11,14 @@ defmodule Fridge.Repo.Migrations.CreateFoods do
       add :fat_per_serv, :integer
       add :pro_per_serv, :integer
       add :fib_per_serv, :integer
-      add :fdc_id, :integer # Add the new fdc_id field
-      add :user_id, references(:users, on_delete: :restrict), null: false
+      add :fdc_id, :integer
+      add :user_id, references(:users, on_delete: :restrict)
 
       timestamps(type: :utc_datetime)
     end
 
     create index(:foods, [:user_id])
     create index(:foods, [:name])
-    create index(:foods, [:fdc_id]) # Add index for fdc_id
+    create index(:foods, [:fdc_id])
   end
 end

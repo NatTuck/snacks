@@ -1,0 +1,7 @@
+- The JS frontend lives in the snacks subdirectory.
+  - This uses pnpm as a package manager.
+- The Elixir/Phoenix backend lives in the fridge subdirectory.
+- Actions specific to the frontend or backend subprojects should happen
+  in the appropriate directories. Specifically, run a command like
+  "mix test" with "cd fridge && mix test" or "pnpm install" with 
+  "cd plate && pnpm install".

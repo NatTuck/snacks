@@ -35,7 +35,7 @@ function LoginPage() {
       // Navigation happens via useEffect watching the session state
     } catch (error) {
       console.error("Login error in component:", error);
-      // Use the error message from the ApiError or a default
+      // Use the error message from the ApiError or  a default
       setLoginError(error.message || "An error occurred during login.");
     } finally {
       setSubmitting(false);
@@ -72,7 +72,7 @@ function LoginPage() {
         )}
 
         <div className="flex my-2">
-          <div className="w-16">&nbsp;</div>
+          <div className="w-24">&nbsp;</div>
           <div>
             <button
               type="submit" // Explicitly set type="submit"
@@ -125,7 +125,7 @@ function InputGroup({ name, emsg, children }) {
 
   return (
     <div className="my-2 flex items-center">
-      <div className="w-16 px-4">
+      <div className="w-24 px-4">
         {capitalize(name)}
       </div>
       <div>

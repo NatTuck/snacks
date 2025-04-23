@@ -11,7 +11,7 @@ defmodule Fridge.Foods.Food do
     field :fat_per_serv, :integer
     field :pro_per_serv, :integer
     field :fib_per_serv, :integer
-    field :fdc_id, :integer # Add the fdc_id field to the schema
+    field :fdc_id, :integer
     field :user_id, :id
 
     timestamps(type: :utc_datetime)
@@ -20,7 +20,26 @@ defmodule Fridge.Foods.Food do
   @doc false
   def changeset(food, attrs) do
     food
-    |> cast(attrs, [:name, :cals_per_serv, :serv_size, :serv_unit, :car_per_serv, :fat_per_serv, :pro_per_serv, :fib_per_serv, :fdc_id]) # Add fdc_id to cast
-    |> validate_required([:name, :cals_per_serv, :serv_size, :serv_unit, :car_per_serv, :fat_per_serv, :pro_per_serv, :fib_per_serv])
+    |> cast(attrs, [
+      :name,
+      :cals_per_serv,
+      :serv_size,
+      :serv_unit,
+      :car_per_serv,
+      :fat_per_serv,
+      :pro_per_serv,
+      :fib_per_serv,
+      :fdc_id
+    ])
+    |> validate_required([
+      :name,
+      :cals_per_serv,
+      :serv_size,
+      :serv_unit,
+      :car_per_serv,
+      :fat_per_serv,
+      :pro_per_serv,
+      :fib_per_serv
+    ])
   end
 end
