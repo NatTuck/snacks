@@ -13,6 +13,7 @@ export const useStore = create(
         try {
           const sessionData = await loginUser(email, password); // Call API
           set({ session: sessionData }); // Update store on success { user: ..., token: ... }
+          console.log("New session: ", sessionData);
           return sessionData; // Return data for potential use in component
         } catch (error) {
           console.error("Login failed in store:", error);
@@ -23,7 +24,7 @@ export const useStore = create(
 
       // Simple logout action
       logout: () => {
-        set({ session: null });
+        set({ session: null, snacks: [] });
       },
 
       addSnack: (snack) => {
