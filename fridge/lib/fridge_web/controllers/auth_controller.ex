@@ -3,8 +3,8 @@ defmodule FridgeWeb.AuthController do
 
   alias Fridge.Users
   alias Fridge.Auth.Guardian
-  alias Fridge.Snacks # Alias the Snacks context
-  import Date # Import Date for today's snacks
+  # Alias the Snacks context
+  alias Fridge.Snacks
 
   action_fallback FridgeWeb.FallbackController
 

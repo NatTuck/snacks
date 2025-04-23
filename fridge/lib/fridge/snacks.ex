@@ -7,7 +7,6 @@ defmodule Fridge.Snacks do
   alias Fridge.Repo
 
   alias Fridge.Snacks.Snack
-  alias Fridge.Foods.Food # Alias Food for preloading
 
   @doc """
   Returns the list of snacks.
@@ -36,8 +35,9 @@ defmodule Fridge.Snacks do
 
     query =
       from s in Snack,
-      where: s.user_id == ^user_id and s.eaten_on == ^today,
-      preload: [:food] # Preload the associated food
+        where: s.user_id == ^user_id and s.eaten_on == ^today,
+        # Preload the associated food
+        preload: [:food]
 
     Repo.all(query)
   end
