@@ -10,34 +10,34 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.4",
-    "daisyui": "^5.0.25",
+    "@tailwindcss/vite": "^4.1.17",
+    "daisyui": "^5.5.0",
     "date-fns": "^4.1.0",
-    "deep-freeze-es6": "^4.0.0",
+    "deep-freeze-es6": "^4.0.1",
     "lodash": "^4.17.21",
     "ramda": "^0.30.1",
-    "react": "^19.1.0",
-    "react-day-picker": "^9.6.7",
-    "react-dom": "^19.1.0",
-    "react-hook-form": "^7.55.0",
+    "react": "^19.2.0",
+    "react-day-picker": "^9.11.1",
+    "react-dom": "^19.2.0",
+    "react-hook-form": "^7.66.0",
     "react-icons": "^5.5.0",
-    "react-router": "^7.5.1",
-    "tailwindcss": "^4.1.4",
-    "zustand": "^5.0.3"
+    "react-router": "^7.9.5",
+    "tailwindcss": "^4.1.17",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "@eslint/js": "^9.24.0",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "@vite-pwa/assets-generator": "^1.0.0",
-    "@vitejs/plugin-react": "^4.4.0",
-    "eslint": "^9.24.0",
+    "@eslint/js": "^9.39.1",
+    "@types/react": "^19.2.4",
+    "@types/react-dom": "^19.2.3",
+    "@vite-pwa/assets-generator": "^1.0.2",
+    "@vitejs/plugin-react": "^4.7.0",
+    "eslint": "^9.39.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "globals": "^16.0.0",
-    "vite": "^6.3.1",
-    "vite-plugin-pwa": "^1.0.0",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "vite": "^6.4.1",
+    "vite-plugin-pwa": "^1.1.0",
     "workbox-core": "^7.3.0",
     "workbox-window": "^7.3.0"
   },
@@ -45,5 +45,5 @@
     "sharp": "0.32.6",
     "sharp-ico": "0.1.5"
   },
-  "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f"
+  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c"
 }

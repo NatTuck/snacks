@@ -49,5 +49,8 @@ defmodule FridgeWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+
+  plug CORSPlug
+
   plug FridgeWeb.Router
 end
